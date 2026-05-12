@@ -1,0 +1,40 @@
+def xk_generator(x, limit_k):
+    """
+    Генератор-функція для створення членів послідовності.
+    """
+    current_xk = x  # це x_1
+    k = 1
+    while k <= limit_k:
+        yield current_xk
+        k += 1
+        # Обчислюємо наступний член через попередній
+        current_xk = current_xk * x * (k - 1) / k
+
+
+def main():
+    try:
+        x = float(input("Введіть значення x: "))
+        k_target = int(input("Введіть номер члена послідовності (k): "))
+
+        if k_target < 1:
+            print("k повинно бути >= 1")
+            return
+
+        # Використання циклу з лічильником для обчислення
+        # Ми можемо отримати k-й член за допомогою нашого генератора
+        gen = xk_generator(x, k_target)
+
+        result = 0
+        print(f"\nПроцес обчислення:")
+        for i, value in enumerate(gen, 1):
+            result = value
+            print(f"x_{i} = {value:.4f}")
+
+        print(f"\nОстаточна відповідь: x_{k_target} = {result}")
+
+    except ValueError:
+        print("Помилка: введіть числові значення.")
+
+
+if __name__ == "__main__":
+    main()
